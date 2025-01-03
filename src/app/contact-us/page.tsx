@@ -6,14 +6,20 @@ import shopimgtwo from "@/app/public/shopimgtwo.png";
 export default function Contact() {
   return (
     <div>
-      {/* Banner Image */}
-      <Image
-        src={shopimg}
-        alt="image"
-        width={1430}
-        height={300}
-        className="w-full h-auto"
-      />
+      {/* Banner Image with Text Overlay */}
+      <div className="relative">
+        <Image
+          src={shopimg}
+          alt="image"
+          width={1430}
+          height={300}
+          className="w-full h-auto"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-50">
+          <h1 className="text-black text-4xl md:text-4xl font-bold">Contact Us</h1>
+          <p className="text-black text-base md:text-lg mt-2">Home / Contact</p>
+        </div>
+      </div>
 
       {/* Introduction Section */}
       <div className="m-4 py-8 text-center">
@@ -122,14 +128,17 @@ export default function Contact() {
         </div>
       </div>
 
-      {/* Bottom Image */}
-      <Image
-        className="mt-16 w-full h-auto"
-        src={shopimgtwo}
-        alt="image"
-        width={1430}
-        height={300}
-      />
+      {/* Bottom Image with Text Overlay */}
+      <div className="relative mt-16">
+        <Image
+          className="w-full h-auto"
+          src={shopimgtwo}
+          alt="image"
+          width={1430}
+          height={300}
+        />
+       
+      </div>
     </div>
   );
 }

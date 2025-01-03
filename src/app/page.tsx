@@ -1,4 +1,8 @@
-
+// page.tsx
+export const metadata = {
+  title: "Home | Furniture Store",  // Adjust the title as needed
+  description: "Explore the latest furniture picks, top trends, and more.",
+};
 
 import HeroSection from "@/app/component/Herosection";
 import React from "react";
@@ -12,34 +16,22 @@ const Home = () => {
   return (
     <div>
       {/* Hero Section */}
-      <div className="bg-[#fbebb5]">
-        <HeroSection />
-      </div>
+      <HeroSection />
 
       {/* Section */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        <Section />
-      </div>
+      <Section />
 
       {/* Top Picks */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        <TopPicks />
-      </div>
+      <TopPicks />
 
       {/* Banner */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        <Banner />
-      </div>
+      <Banner/>
 
       {/* Blogs */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        <Blogs />
-      </div>
+      <Blogs />
 
       {/* Second Banner */}
-      <div className="px-4 sm:px-6 md:px-8 lg:px-16 xl:px-20">
-        <Banner2 />
-      </div>
+      <Banner2 />
     </div>
   );
 };
