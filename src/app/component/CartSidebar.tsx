@@ -2,6 +2,7 @@
 
 import React from "react";
 import Image from "next/image";
+import Link from "next/link"; // Import Link from next/link
 
 interface CartItem {
   id: number;
@@ -9,14 +10,16 @@ interface CartItem {
   price: number;
   image: string;
   quantity: number;
+  selectedSize: string;
+  selectedColor: string;
 }
 
 interface CartSidebarProps {
   isOpen: boolean;
   toggleCart: () => void;
-  cartItems: CartItem[]; // Accept cartItems as a prop
-  removeItem: (id: number) => void; // Function to remove an item
-  calculateSubtotal: () => number; // Function to calculate subtotal
+  cartItems: CartItem[];
+  removeItem: (id: number) => void;
+  calculateSubtotal: () => number;
 }
 
 const CartSidebar: React.FC<CartSidebarProps> = ({
@@ -43,9 +46,11 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
           cartItems.map((item) => (
             <div key={item.id} className="flex items-center space-x-4 mb-4">
               <Image src={item.image} alt={item.name} width={50} height={50} />
-              <div>
+              <div className="flex flex-col">
                 <h4>{item.name}</h4>
                 <p>Rs. {item.price}</p>
+                <p>Size: {item.selectedSize}</p>
+                <p>Color: {item.selectedColor}</p>
                 <p>Qty: {item.quantity}</p>
               </div>
               <button
@@ -65,10 +70,17 @@ const CartSidebar: React.FC<CartSidebarProps> = ({
           <span>Subtotal:</span>
           <span>Rs. {calculateSubtotal().toLocaleString()}</span>
         </div>
-        <div className="p-2 w-full">
-          <button className="flex mx-auto text-black bg-black-500 border-0 py-2 px-8 focus:outline-none hover:bg-black-600 rounded text-lg">
-            CheckOut
-          </button>
+        <div className="flex justify-center gap-2 mt-4">
+          <Link href="/cart">
+            <button className="text-black bg-gray-200 border-2 py-1 px-5 focus:outline-none hover:bg-gray-300 rounded text-sm">
+              View Cart
+            </button>
+          </Link>
+          <Link href="/checkout">
+            <button className="text-black bg-gray-200 border-2 py-1 px-5 focus:outline-none hover:bg-gray-300 rounded text-sm">
+              CheckOut
+            </button>
+          </Link>
         </div>
       </div>
     </div>

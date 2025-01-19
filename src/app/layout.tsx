@@ -41,6 +41,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     }
   }, []);
 
+  // Handle body scroll based on cart open/close state
+  useEffect(() => {
+    if (isCartOpen) {
+      document.body.style.overflow = "hidden"; // Disable scrolling when cart is open
+    } else {
+      document.body.style.overflow = "auto"; // Enable scrolling when cart is closed
+    }
+
+    return () => {
+      document.body.style.overflow = "auto"; // Reset on unmount
+    };
+  }, [isCartOpen]);
+
   // Calculate the subtotal for cart items
   const calculateSubtotal = () => {
     return cartItems.reduce((total, item) => total + item.price * item.quantity, 0);
@@ -48,7 +61,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
   // Remove an item from the cart and update localStorage
   const removeItem = (id: number) => {
-    const updatedCart = cartItems.filter(item => item.id !== id);
+    const updatedCart = cartItems.filter((item) => item.id !== id);
     setCartItems(updatedCart);
     localStorage.setItem("cart", JSON.stringify(updatedCart));
   };
