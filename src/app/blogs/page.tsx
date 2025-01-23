@@ -11,8 +11,21 @@ export default function Blogs() {
   return (
     <div>
      
-      {/* Shop Image */}
-      <Image src={shopimg} alt="shop" height={820} width={1440} />
+   {/* Banner Section */}
+   <div className="relative">
+        <Image
+          src={shopimg}
+          alt="Shop Banner"
+          height={400}
+          width={1440}
+          className="w-full h-auto"
+        />
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
+          <h1 className="text-black text-3xl sm:text-4xl font-semibold">Our Blogs</h1>
+          <p className="text-black mt-2">Home / Blogs</p>
+        </div>
+      </div>
+
 
       <div className="flex">
         {/* Blog Links */}
@@ -43,15 +56,25 @@ export default function Blogs() {
   </div>
 
   {/* Categories Heading */}
-  <div className="mt-10">
-    <h1 className="font-bold text-black text-2xl px-20">Categories</h1>
-  </div>
-  <div className="flex flex-col gap-9 mt-10 text-gray-400">
-  <span>Crafts <span className="ml-60">2</span></span>
-  <span>Design <span className="ml-[230px]">8</span></span>
-  <span>Handmade <span className="ml-[200px]">7</span></span>
-  <span>Interior<span className="ml-[233px]">1</span></span>
-  <span>Wood <span className="ml-[242px]">6</span></span>
+<div className="mt-10">
+  <h1 className="font-bold text-black text-2xl px-4 sm:px-20">Categories</h1>
+</div>
+<div className="flex flex-col gap-6 mt-10 text-gray-400">
+  <span className="flex justify-between items-center">
+    Crafts <span className="ml-4 sm:ml-60">2</span>
+  </span>
+  <span className="flex justify-between items-center">
+    Design <span className="ml-4 sm:ml-[230px]">8</span>
+  </span>
+  <span className="flex justify-between items-center">
+    Handmade <span className="ml-4 sm:ml-[200px]">7</span>
+  </span>
+  <span className="flex justify-between items-center">
+    Interior <span className="ml-4 sm:ml-[233px]">1</span>
+  </span>
+  <span className="flex justify-between items-center">
+    Wood <span className="ml-4 sm:ml-[242px]">6</span>
+  </span>
 </div>
 
 

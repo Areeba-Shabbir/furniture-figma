@@ -11,7 +11,7 @@ export default function Topproduct(){
   <div className="">
  <div className='flex justify-center flex-col items-center my-20'>
   <div >
-  <h1 className="text-2xl text-center text-gray-900" >Our Blog</h1>
+  <h1 className="text-2xl text-center text-gray-900" >Top Picks</h1>
     <h2 className='my-4 text-gray-500'>
      Find a bright ideal to suit your taste our great selection of suspension, floors and table lights
    </h2>

@@ -17,8 +17,8 @@ const Banner = () => {
       </div>
       <div className="flex flex-col justify-center items-center text-center lg:text-left">
         <h1 className="text-xl md:text-2xl">New Arrivals</h1>
-        <h2 className="text-2xl md:text-4xl mb-4">Asgaard Sofa</h2>
-        <Link href="/asgard-sofa">
+        <h2 className="text-2xl md:text-4xl mb-4">Style your space today!</h2>
+        <Link href="/shop">
           <button className="h-10 md:h-12 w-[150px] md:w-[200px] border-2 border-black">
             Order Now
           </button>
