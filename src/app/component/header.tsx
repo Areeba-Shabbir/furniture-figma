@@ -1,78 +1,13 @@
-// // src/components/Header.tsx
-// import React from 'react';
-// import Link from 'next/link';
-// import { FaUser, FaSearch, FaHeart, FaShoppingCart } from 'react-icons/fa';
-
-// interface HeaderProps {
-//   toggleCart: () => void; // Function to toggle the cart sidebar (if any)
-// }
-
-// const Header: React.FC<HeaderProps> = ({ toggleCart }) => {
-//   return (
-//     <header className="bg-white p-5 shadow-md transition-all duration-300 ease-in-out">
-//       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
-//         {/* Center Section - Links */}
-//         <nav className="flex space-x-8">
-//           <Link href="/" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             Home
-//           </Link>
-//           <Link href="/shop" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             Shop
-//           </Link>
-//           <Link href="/about-us" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             About
-//           </Link>
-//           <Link href="/contact-us" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             Contact
-//           </Link>
-//         </nav>
-
-//         {/* Right Section - Icons */}
-//         <div className="flex space-x-7">
-//           <Link href="/profile" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             <FaUser size={20} />
-//           </Link>
-//           <Link href="/search" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             <FaSearch size={20} />
-//           </Link>
-//           <Link href="/wishlist" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             <FaHeart size={20} />
-//           </Link>
-//           {/* Cart Icon - Links to the Cart Page */}
-//           <Link href="/cart" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-//             <FaShoppingCart size={20} />
-//           </Link>
-//         </div>
-//       </div>
-//     </header>
-//   );
-// };
-
-// export default Header;
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 "use client";
 
 import React, { useState } from "react";
 import Link from "next/link";
-import { FaUser, FaSearch, FaHeart, FaShoppingCart } from "react-icons/fa";
+import { FaUser, FaSearch, FaHeart, FaShoppingCart, FaBars, FaTimes } from "react-icons/fa";
 import { useRouter } from "next/navigation";
 
 const Header: React.FC = () => {
   const [isSearchOpen, setIsSearchOpen] = useState(false);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const router = useRouter();
 
@@ -86,62 +21,140 @@ const Header: React.FC = () => {
   };
 
   return (
-    <header className="bg-white p-5 shadow-md transition-all duration-300 ease-in-out">
+    <header className="bg-white p-4 shadow-md transition-all duration-300 ease-in-out">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
-        <nav className="flex space-x-8">
-          <Link href="/" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-            Home
-          </Link>
-          <Link href="/shop" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-            Shop
-          </Link>
-          <Link href="/about-us" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-            About
-          </Link>
-          <Link href="/contact-us" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
-            Contact
-          </Link>
+       
+
+        {/* Desktop Navigation */}
+        <nav className="hidden md:flex space-x-8">
+          <ul className="flex space-x-8">
+            <li>
+              <Link href="/" className="text-gray-800 hover:text-gray-600 transition-all">
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link href="/shop" className="text-gray-800 hover:text-gray-600 transition-all">
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link href="/about-us" className="text-gray-800 hover:text-gray-600 transition-all">
+                About
+              </Link>
+            </li>
+            <li>
+              <Link href="/contact-us" className="text-gray-800 hover:text-gray-600 transition-all">
+                Contact
+              </Link>
+            </li>
+          </ul>
         </nav>
 
+        {/* Icons */}
         <div className="flex items-center space-x-5">
-          <Link href="/profile" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
+          {/* Profile Icon */}
+          <Link href="/profile" className="text-gray-800 hover:text-gray-600 transition-all">
             <FaUser size={20} />
           </Link>
+
+          {/* Search Icon and Form */}
           <div className="relative">
             <FaSearch
               size={20}
-              className="cursor-pointer text-black hover:text-gray-600 transition-all duration-300 ease-in-out"
+              className="cursor-pointer text-gray-800 hover:text-gray-600 transition-all"
               onClick={() => setIsSearchOpen(!isSearchOpen)}
             />
             {isSearchOpen && (
               <form
                 onSubmit={handleSearch}
-                className="absolute top-6 right-0 bg-white border border-gray-300 p-2 rounded shadow-lg z-50"
+                className="absolute top-8 right-0 bg-white border border-gray-300 p-2 rounded shadow-lg z-50 w-full sm:w-64"
               >
                 <input
                   type="text"
                   placeholder="Search products..."
                   value={searchQuery}
                   onChange={(e) => setSearchQuery(e.target.value)}
-                  className="border border-gray-300 rounded p-1 focus:outline-none focus:border-gray-600"
+                  className="border border-gray-300 rounded p-1 focus:outline-none focus:border-gray-600 w-full"
                 />
                 <button
                   type="submit"
-                  className="ml-2 px-3 py-1 bg-blue-500 text-white rounded"
+                  className={`mt-2 w-full px-3 py-1 rounded text-white ${
+                    searchQuery.trim()
+                      ? "bg-blue-500 hover:bg-blue-600"
+                      : "bg-gray-300 cursor-not-allowed"
+                  }`}
+                  disabled={!searchQuery.trim()}
                 >
                   Go
                 </button>
               </form>
             )}
           </div>
-          <Link href="/wishlist" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
+
+          {/* Wishlist Icon */}
+          <Link href="/wishlist" className="text-gray-800 hover:text-gray-600 transition-all">
             <FaHeart size={20} />
           </Link>
-          <Link href="/cart" className="text-black hover:text-gray-600 transition-all duration-300 ease-in-out">
+
+          {/* Cart Icon */}
+          <Link href="/cart" className="text-gray-800 hover:text-gray-600 transition-all">
             <FaShoppingCart size={20} />
           </Link>
+
+          {/* Mobile Menu Toggle */}
+          <button
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+            className="md:hidden text-gray-800 hover:text-gray-600 transition-all"
+          >
+            {isMobileMenuOpen ? <FaTimes size={20} /> : <FaBars size={20} />}
+          </button>
         </div>
       </div>
+
+      {/* Mobile Menu */}
+      {isMobileMenuOpen && (
+        <nav className="mt-4 space-y-2 md:hidden bg-gray-100 p-4 rounded shadow-md">
+          <ul className="space-y-2">
+            <li>
+              <Link
+                href="/"
+                className="block text-gray-800 hover:text-gray-600 transition-all"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Home
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/shop"
+                className="block text-gray-800 hover:text-gray-600 transition-all"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Shop
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/about-us"
+                className="block text-gray-800 hover:text-gray-600 transition-all"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                About
+              </Link>
+            </li>
+            <li>
+              <Link
+                href="/contact-us"
+                className="block text-gray-800 hover:text-gray-600 transition-all"
+                onClick={() => setIsMobileMenuOpen(false)}
+              >
+                Contact
+              </Link>
+            </li>
+          </ul>
+        </nav>
+      )}
     </header>
   );
 };

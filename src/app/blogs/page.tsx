@@ -30,15 +30,14 @@ export default function Blogs() {
       <div className="flex">
         {/* Blog Links */}
         <div className="mt-20 m-20 mb-0 h-[2200px] w-[620px]">
-          <Link href="/blog1">
+          
             <Image className="mb-20" src={Blog} alt="blog1" />
-          </Link>
-          <Link href="/blog2">
+         
             <Image className="mb-20" src={Blog2} alt="blog2" />
-          </Link>
-          <Link href="/blog3">
+         
+          
             <Image className="mb-20" src={Blog3} alt="blog3" />
-          </Link>
+          
         </div>
 
         {/* Search Input */}

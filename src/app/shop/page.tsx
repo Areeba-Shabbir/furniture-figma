@@ -3,7 +3,6 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-// import ShopLine from "@/app/component/shopLine";
 import shopimg from "@/app/public/shopimg.png";
 import Text from "@/app/component/Text";
 import { client } from "@/sanity/lib/client";
@@ -48,7 +47,6 @@ const Shop = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Filter states
   const [selectedCategory, setSelectedCategory] = useState<string>("All");
   const [maxPrice, setMaxPrice] = useState<number>(Infinity);
   const [showFeatured, setShowFeatured] = useState<boolean>(false);
@@ -60,7 +58,7 @@ const Shop = () => {
       try {
         const data = await fetchProducts();
         setProducts(data);
-        setFilteredProducts(data); // Initialize filteredProducts
+        setFilteredProducts(data);
       } catch (error) {
         console.error("Error fetching products:", error);
       } finally {
@@ -90,7 +88,7 @@ const Shop = () => {
     }
 
     setFilteredProducts(filtered);
-    setCurrentPage(1); // Reset to first page after filtering
+    setCurrentPage(1);
   };
 
   useEffect(() => {
@@ -110,22 +108,19 @@ const Shop = () => {
     <div className="flex flex-col">
       {/* Banner Section */}
       <div className="relative">
-        <Image
-          src={shopimg}
-          alt="Shop Banner"
-          height={400}
-          width={1440}
-          className="w-full h-auto"
-        />
+      <Image
+  src={shopimg}
+  alt="Shop Banner"
+  height={400}
+  width={1440}
+  className="w-full h-[250px] sm:h-[400px] object-cover"
+  priority
+  loading="eager"
+/>
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
-          <h1 className="text-black text-3xl sm:text-4xl font-semibold">Shop</h1>
-          <p className="text-black mt-2">Home / Shop</p>
+          <h1 className="text-white text-2xl sm:text-4xl font-semibold">Shop</h1>
+          <p className="text-white mt-2 text-sm sm:text-base">Home / Shop</p>
         </div>
-      </div>
-
-      {/* Shop Line Section */}
-      <div className="my-6">
-        {/* <ShopLine /> */}
       </div>
 
       {/* Filter Section */}
@@ -133,13 +128,12 @@ const Shop = () => {
         <select
           value={selectedCategory}
           onChange={(e) => setSelectedCategory(e.target.value)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full sm:w-auto"
         >
           <option value="All">All Categories</option>
-          {/* Replace with dynamic categories if needed */}
-          <option value="Furniture">Bed</option>
-          <option value="Decor">Sofa</option>
-          <option value="Lighting">Table</option>
+          <option value="Furniture">Furniture</option>
+          <option value="Decor">Decor</option>
+          <option value="Lighting">Lighting</option>
         </select>
 
         <input
@@ -147,10 +141,10 @@ const Shop = () => {
           placeholder="Max Price"
           value={maxPrice === Infinity ? "" : maxPrice}
           onChange={(e) => setMaxPrice(Number(e.target.value) || Infinity)}
-          className="p-2 border rounded"
+          className="p-2 border rounded w-full sm:w-auto"
         />
 
-        <label className="flex items-center gap-2">
+        <label className="flex items-center gap-2 w-full sm:w-auto">
           <input
             type="checkbox"
             checked={showFeatured}
@@ -226,7 +220,7 @@ const Shop = () => {
         </button>
       </div>
 
-      {/* Field Section */}
+      {/* Text Section */}
       <div className="justify-center mx-auto mt-8">
         <Text />
       </div>

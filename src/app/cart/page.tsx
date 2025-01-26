@@ -5,14 +5,14 @@
 // import Link from 'next/link';
 // import Image from 'next/image';
 // import { urlFor } from '@/sanity/lib/image'; // Assuming you have this utility
-// import shopimg from "@/app/public/shopimg.png"
+// import shopimg from "@/app/public/shopimg.png";
 
 // interface CartItem {
 //   id: string;
 //   name: string;
-//   price: number; // Ensure price is a number
+//   price: number;
 //   quantity: number;
-//   image: any; // Image object (Sanity asset or URL)
+//   image: any;
 // }
 
 // const Cart = () => {
@@ -46,30 +46,29 @@
 //     setCart(updatedCart);
 //   };
 
-//   // Calculate total amount
-//   const totalAmount = cart.reduce((total, item) => total + (Number(item.price) ), 0); // Ensure price is treated as a number
+//    // Calculate total amount
+//    const totalAmount = cart.reduce((total, item) => total + (Number(item.price) ), 0); // Ensure price is treated as a number
 
 //   return (
-//     <div className="container mx-auto p-8">
-//         {/* Banner Section */}
-//         <div className="relative">
+//     <div className="container mx-auto px-4 sm:px-8 py-8">
+//          {/* Banner Section */}
+//          <div className="relative">
 //         <Image
 //           src={shopimg}
 //           alt="Shop Banner"
 //           height={400}
 //           width={1440}
-//           className="w-full h-auto"
+//           className="w-full h-40 sm:h-64 lg:h-80 object-cover"
 //         /> 
 //         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
-//           <h1 className="text-black text-3xl sm:text-4xl font-semibold">Cart</h1>
-//           <p className="text-black mt-2">Home / Cart</p>
+//           <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-semibold">Cart</h1>
+//           <p className="text-white mt-2 text-sm sm:text-base">Home / Cart</p>
 //         </div>
 //       </div>
-
-//       <h2 className="text-2xl font-semibold mb-7">Your Shopping Cart</h2>
+//       <h2 className="text-xl sm:text-2xl font-semibold mb-6">Your Shopping Cart</h2>
       
 //       {cart.length === 0 ? (
-//         <p className="text-lg text-gray-500">Your cart is empty!</p>
+//         <p className="text-lg text-gray-500 text-center">Your cart is empty!</p>
 //       ) : (
 //         <div>
 //           {/* Cart items */}
@@ -77,28 +76,32 @@
 //             {cart.map((item) => (
 //               <div
 //                 key={item.id}
-//                 className="flex items-center justify-between bg-white shadow-lg rounded-lg p-4"
+//                 className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-lg rounded-lg p-4 space-y-4 sm:space-y-0"
 //               >
 //                 <div className="flex items-center space-x-4">
 //                   <div className="relative w-20 h-20">
 //                     {item.image && (
-//                       <Image
-//                         src={urlFor(item.image).url() || '/fallback-image.png'} // Ensure valid URL
-//                         alt={item.name}
-//                         layout="fill"
-//                         objectFit="cover"
-//                         className="rounded-md"
-//                       />
+//                      <Image
+//                      src={urlFor(item.image).url() || '/fallback-image.png'} // Ensure valid URL
+//                      alt={item.name}
+//                      layout="fill"
+//                      objectFit="cover"
+//                      className="rounded-md"
+//                    />
 //                     )}
 //                   </div>
 //                   <div className="flex flex-col">
-//                     <span className="font-medium text-lg">{item.name}</span>
+//                     <span className="font-medium text-base sm:text-lg">{item.name}</span>
+//                     <div className="flex items-center space-x-3 mt-1">
+                      
+                      
+//                     </div>
 //                   </div>
 //                 </div>
 
 //                 <div className="flex flex-col items-end space-y-2">
-//                   <span className="text-xl font-semibold">
-//                     ${(Number(item.price) ).toFixed(2)} {/* Ensure price is treated as a number */}
+//                   <span className="text-lg sm:text-xl font-semibold">
+//                     ${Number (item.price ).toFixed(2)}
 //                   </span>
 //                   <button
 //                     className="text-red-600 hover:text-red-800"
@@ -112,13 +115,13 @@
 //           </div>
 
 //           {/* Total and Checkout */}
-//           <div className="mt-8 flex justify-between items-center">
-//             <div className="text-xl font-semibold">
+//           <div className="mt-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+//             <div className="text-lg sm:text-xl font-semibold">
 //               <span>Total: </span>
-//               <span>${totalAmount.toFixed(2)}</span> {/* Ensure total is correctly calculated */}
+//               <span>${totalAmount.toFixed(2)}</span>
 //             </div>
 //             <Link href="/checkout">
-//               <button className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-200">
+//               <button className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-200 w-full sm:w-auto text-center">
 //                 Proceed to Checkout
 //               </button>
 //             </Link>
@@ -130,14 +133,6 @@
 // };
 
 // export default Cart;
-
-
-
-
-
-
-
-
 
 
 
@@ -190,62 +185,66 @@ const Cart = () => {
     setCart(updatedCart);
   };
 
-   // Calculate total amount
-   const totalAmount = cart.reduce((total, item) => total + (Number(item.price) ), 0); // Ensure price is treated as a number
+  // Calculate total amount
+  const totalAmount = cart.reduce((total, item) => total + (item.price), 0); // Ensure price is treated as a number and quantity is considered
 
   return (
-    <div className="container mx-auto p-8">
-         {/* Banner Section */}
-         <div className="relative">
-        <Image
-          src={shopimg}
-          alt="Shop Banner"
-          height={400}
-          width={1440}
-          className="w-full h-auto"
-        /> 
+    <div className="container mx-auto px-4 sm:px-8 py-8">
+      {/* Banner Section */}
+      <div className="relative">
+      <Image
+  src={shopimg}
+  alt="Shop Banner"
+  height={400}
+  width={1440}
+  className="w-full h-[250px] sm:h-[400px] object-cover"
+  priority
+  loading="eager"
+/>
+
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
-          <h1 className="text-black text-3xl sm:text-4xl font-semibold">Cart</h1>
-          <p className="text-black mt-2">Home / Cart</p>
+          <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-semibold">Cart</h1>
+          <p className="text-white mt-2 text-sm sm:text-base">Home / Cart</p>
         </div>
       </div>
-      <h2 className="text-2xl font-semibold mb-6">Your Shopping Cart</h2>
-      
+
+      <h2 className="text-xl sm:text-2xl font-semibold mb-6">Your Shopping Cart</h2>
+
       {cart.length === 0 ? (
-        <p className="text-lg text-gray-500">Your cart is empty!</p>
+        <p className="text-lg text-gray-500 text-center">Your cart is empty!</p>
       ) : (
         <div>
           {/* Cart items */}
           <div className="space-y-6">
-            {cart.map((item) => (
+            {cart.map((item, index) => (
               <div
-                key={item.id}
-                className="flex items-center justify-between bg-white shadow-lg rounded-lg p-4"
+                key={item.id || index} // Fallback to index if id is not unique
+                className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-lg rounded-lg p-4 space-y-4 sm:space-y-0"
               >
                 <div className="flex items-center space-x-4">
                   <div className="relative w-20 h-20">
                     {item.image && (
-                     <Image
-                     src={urlFor(item.image).url() || '/fallback-image.png'} // Ensure valid URL
-                     alt={item.name}
-                     layout="fill"
-                     objectFit="cover"
-                     className="rounded-md"
-                   />
+                      <Image
+                      src={urlFor(item.image).url() || '/fallback-image.png'}
+                      alt={item.name}
+                      layout="fill"
+                      objectFit="cover"
+                      className="rounded-md"
+                      loading="eager" // This forces images to load eagerly
+                    />
                     )}
                   </div>
                   <div className="flex flex-col">
-                    <span className="font-medium text-lg">{item.name}</span>
+                    <span className="font-medium text-base sm:text-lg">{item.name}</span>
                     <div className="flex items-center space-x-3 mt-1">
-                      
-                     
+                      {/* Add quantity controls if needed */}
                     </div>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end space-y-2">
-                  <span className="text-xl font-semibold">
-                    ${Number (item.price ).toFixed(2)}
+                  <span className="text-lg sm:text-xl font-semibold">
+                    ${Number(item.price).toFixed(2)} {/* Display total for this item */}
                   </span>
                   <button
                     className="text-red-600 hover:text-red-800"
@@ -259,13 +258,13 @@ const Cart = () => {
           </div>
 
           {/* Total and Checkout */}
-          <div className="mt-8 flex justify-between items-center">
-            <div className="text-xl font-semibold">
+          <div className="mt-8 flex flex-col sm:flex-row justify-between items-center space-y-4 sm:space-y-0">
+            <div className="text-lg sm:text-xl font-semibold">
               <span>Total: </span>
               <span>${totalAmount.toFixed(2)}</span>
             </div>
             <Link href="/checkout">
-              <button className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-200">
+              <button className="bg-blue-600 text-white py-3 px-6 rounded-lg hover:bg-blue-700 transition duration-200 w-full sm:w-auto text-center">
                 Proceed to Checkout
               </button>
             </Link>
@@ -277,4 +276,3 @@ const Cart = () => {
 };
 
 export default Cart;
-

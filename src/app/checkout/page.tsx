@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import Image from 'next/image';
-import shopImg from '@/app/public/shopimg.png';
+import shopimg from '@/app/public/shopimg.png';
 
 interface CartItem {
   _id: string;
@@ -82,7 +82,16 @@ export default function Checkout() {
     <div className="max-w-[1440px] mx-auto px-6 sm:px-10 lg:px-16 py-8">
       {/* Banner Section */}
       <div className="relative w-full h-[300px]">
-        <Image src={shopImg} alt="Checkout" layout="fill" objectFit="cover" className="rounded-lg" />
+      <Image
+  src={shopimg}
+  alt="Shop Banner"
+  height={400}
+  width={1440}
+  className="w-full h-[250px] sm:h-[400px] object-cover"
+  priority
+  loading="eager"
+/>
+
         <div className="absolute inset-0 bg-black bg-opacity-40 flex flex-col items-center justify-center">
           <h1 className="text-white text-4xl font-bold">Checkout</h1>
           <p className="text-white mt-2">Home / Checkout</p>

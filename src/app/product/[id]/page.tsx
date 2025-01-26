@@ -21,7 +21,7 @@ interface Product {
   discountPercentage: number;
   isFeaturedProduct: number;
   name: string;
-  image: any;  // Updated to reflect the image object
+  image: any;
   reviews: Review[];
 }
 
@@ -77,7 +77,7 @@ export default function ProductPage({ params }: { params: Params }) {
   }, [params.id]);
 
   const addToCart = () => {
-    if (!product || !selectedColor || !selectedSize) return; // Prevent adding incomplete product to cart
+    if (!product || !selectedColor || !selectedSize) return;
 
     const productWithSelection = {
       ...product,
@@ -88,11 +88,11 @@ export default function ProductPage({ params }: { params: Params }) {
     const existingCart = JSON.parse(localStorage.getItem("cart") || "[]");
     localStorage.setItem("cart", JSON.stringify([...existingCart, productWithSelection]));
     alert(`${product.name} added to cart!`);
-    router.push("/cart"); // Navigate to the cart page
+    router.push("/cart");
   };
 
   const addToWishlist = () => {
-    if (!product || !selectedColor || !selectedSize) return; // Prevent adding incomplete product to wishlist
+    if (!product || !selectedColor || !selectedSize) return;
 
     const productWithSelection = {
       ...product,
@@ -103,14 +103,14 @@ export default function ProductPage({ params }: { params: Params }) {
     const existingWishlist = JSON.parse(localStorage.getItem("wishlist") || "[]");
     localStorage.setItem("wishlist", JSON.stringify([...existingWishlist, productWithSelection]));
     alert(`${product.name} added to wishlist!`);
-    router.push("/wishlist"); // Navigate to the wishlist page
+    router.push("/wishlist");
   };
 
   const submitReview = () => {
-    if (!newReview.trim()) return; // Prevent submitting empty review
+    if (!newReview.trim()) return;
 
     const newReviewData = {
-      user: "Anonymous",  // In a real app, this would be the logged-in user's name
+      user: "Anonymous",
       comment: newReview,
       rating: newRating,
     };
@@ -121,8 +121,8 @@ export default function ProductPage({ params }: { params: Params }) {
     };
 
     setProduct(updatedProduct);
-    setNewReview("");  // Clear review input after submission
-    setNewRating(1);   // Reset rating after submission
+    setNewReview("");
+    setNewRating(1);
 
     alert("Review submitted!");
   };
@@ -136,15 +136,15 @@ export default function ProductPage({ params }: { params: Params }) {
   }
 
   return (
-    <div className="max-w-4xl mx-auto py-8 px-4 grid grid-cols-1 lg:grid-cols-2 gap-8">
+    <div className="max-w-7xl mx-auto py-8 px-4 md:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-8">
       <div className="flex justify-center items-center">
         {product.image ? (
           <Image
             src={urlFor(product.image).url() || "/fallback-image.png"}
             alt={product.name}
-            width={600}  // Adjust the width as needed
-            height={600} // Adjust the height as needed
-            className="w-full h-auto object-cover rounded-lg"  // Ensures the image scales well
+            width={600}
+            height={600}
+            className="w-full h-auto object-cover rounded-lg"
           />
         ) : (
           <div className="w-full h-64 bg-gray-200 flex items-center justify-center text-gray-600">
@@ -152,18 +152,18 @@ export default function ProductPage({ params }: { params: Params }) {
           </div>
         )}
       </div>
-      <div className="flex flex-col justify-start">
-        <h1 className="text-3xl font-bold mt-6">{product.name}</h1>
-        <p className="text-xl text-gray-600 mt-4">$ {product.price}</p>
-        <p className="text-lg text-gray-800 mt-4">{product.description}</p>
+      <div className="flex flex-col">
+        <h1 className="text-2xl md:text-3xl font-bold">{product.name}</h1>
+        <p className="text-lg md:text-xl text-gray-600 mt-4">$ {product.price}</p>
+        <p className="text-base md:text-lg text-gray-800 mt-4">{product.description}</p>
 
         {/* Color Selection */}
         <div className="mt-6">
-          <label className="block text-lg font-medium">Color:</label>
+          <label className="block text-base md:text-lg font-medium">Color:</label>
           <select
             value={selectedColor}
             onChange={(e) => setSelectedColor(e.target.value)}
-            className="mt-2 p-2 border border-gray-300 rounded w-full sm:w-80"
+            className="mt-2 p-2 border border-gray-300 rounded w-full md:w-80"
           >
             <option value="">Select Color</option>
             <option value="Brown">Brown</option>
@@ -174,11 +174,11 @@ export default function ProductPage({ params }: { params: Params }) {
 
         {/* Size Selection */}
         <div className="mt-6">
-          <label className="block text-lg font-medium">Size:</label>
+          <label className="block text-base md:text-lg font-medium">Size:</label>
           <select
             value={selectedSize}
             onChange={(e) => setSelectedSize(e.target.value)}
-            className="mt-2 p-2 border border-gray-300 rounded w-full sm:w-80"
+            className="mt-2 p-2 border border-gray-300 rounded w-full md:w-80"
           >
             <option value="">Select Size</option>
             <option value="Small">Small</option>
@@ -187,7 +187,7 @@ export default function ProductPage({ params }: { params: Params }) {
           </select>
         </div>
 
-        <div className="mt-6 flex space-x-4">
+        <div className="mt-6 flex flex-col sm:flex-row space-y-4 sm:space-y-0 sm:space-x-4">
           <button
             onClick={addToCart}
             className="py-2 px-4 bg-green-500 text-white rounded-lg w-full sm:w-auto"
@@ -201,60 +201,55 @@ export default function ProductPage({ params }: { params: Params }) {
             Add to Wishlist
           </button>
         </div>
+      </div>
 
-        {/* Review and Rating Section */}
-        <div className="mt-8">
-          <h2 className="text-2xl font-semibold mb-4">Customer Reviews</h2>
-          <div className="space-y-4">
-            {product.reviews?.map((review, index) => (
-              <div key={index} className="border p-4 rounded-lg">
-                <div className="flex justify-between items-center">
-                  <span className="font-semibold">{review.user}</span>
-                  <span className="text-yellow-500">
-                    {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
-                  </span>
-                </div>
-                <p className="mt-2">{review.comment}</p>
+      {/* Reviews Section */}
+      <div className="lg:col-span-2 mt-8">
+        <h2 className="text-xl md:text-2xl font-semibold mb-4">Customer Reviews</h2>
+        <div className="space-y-4">
+          {product.reviews?.map((review, index) => (
+            <div key={index} className="border p-4 rounded-lg">
+              <div className="flex justify-between items-center">
+                <span className="font-semibold">{review.user}</span>
+                <span className="text-yellow-500">
+                  {"★".repeat(review.rating)}{"☆".repeat(5 - review.rating)}
+                </span>
               </div>
-            ))}
+              <p className="mt-2">{review.comment}</p>
+            </div>
+          ))}
+        </div>
+
+        <div className="mt-8">
+          <h3 className="text-lg md:text-xl font-semibold">Leave a Review</h3>
+          <textarea
+            value={newReview}
+            onChange={(e) => setNewReview(e.target.value)}
+            rows={4}
+            placeholder="Write your review..."
+            className="w-full p-2 border border-gray-300 rounded mt-4"
+          />
+          <div className="mt-4">
+            <label className="block text-base md:text-lg font-medium">Rating:</label>
+            <select
+              value={newRating}
+              onChange={(e) => setNewRating(Number(e.target.value))}
+              className="mt-2 p-2 border border-gray-300 rounded w-full md:w-80"
+            >
+              <option value={1}>1 Star</option>
+              <option value={2}>2 Stars</option>
+              <option value={3}>3 Stars</option>
+              <option value={4}>4 Stars</option>
+              <option value={5}>5 Stars</option>
+            </select>
           </div>
 
-          <div className="mt-8">
-            <h3 className="text-xl font-semibold">Leave a Review</h3>
-            <div className="mt-4">
-              <textarea
-                value={newReview}
-                onChange={(e) => setNewReview(e.target.value)}
-                rows={4}
-                placeholder="Write your review..."
-                className="w-full p-2 border border-gray-300 rounded"
-              />
-            </div>
-
-            <div className="mt-4">
-              <label className="block text-lg font-medium">Rating:</label>
-              <select
-                value={newRating}
-                onChange={(e) => setNewRating(Number(e.target.value))}
-                className="mt-2 p-2 border border-gray-300 rounded w-full sm:w-80"
-              >
-                <option value={1}>1 Star</option>
-                <option value={2}>2 Stars</option>
-                <option value={3}>3 Stars</option>
-                <option value={4}>4 Stars</option>
-                <option value={5}>5 Stars</option>
-              </select>
-            </div>
-
-            <div className="mt-6">
-              <button
-                onClick={submitReview}
-                className="py-2 px-4 bg-blue-500 text-white rounded-lg"
-              >
-                Submit Review
-              </button>
-            </div>
-          </div>
+          <button
+            onClick={submitReview}
+            className="py-2 px-4 bg-blue-500 text-white rounded-lg mt-6"
+          >
+            Submit Review
+          </button>
         </div>
       </div>
     </div>
