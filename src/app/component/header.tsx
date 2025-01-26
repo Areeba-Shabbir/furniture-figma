@@ -23,8 +23,6 @@ const Header: React.FC = () => {
   return (
     <header className="bg-white p-4 shadow-md transition-all duration-300 ease-in-out">
       <div className="max-w-screen-xl mx-auto flex justify-between items-center">
-       
-
         {/* Desktop Navigation */}
         <nav className="hidden md:flex space-x-8">
           <ul className="flex space-x-8">
