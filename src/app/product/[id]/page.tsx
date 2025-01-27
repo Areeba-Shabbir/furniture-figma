@@ -1,4 +1,4 @@
-"use client";
+"use client";  // This marks the file as a client component
 
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
@@ -21,7 +21,7 @@ interface Product {
   discountPercentage: number;
   isFeaturedProduct: number;
   name: string;
-  image: any;
+  image: string;
   reviews: Review[];
 }
 
@@ -59,7 +59,8 @@ export default function ProductPage({ params }: { params: Params }) {
   useEffect(() => {
     const loadProduct = async () => {
       try {
-        const fetchedProduct = await fetchProduct(params.id);
+        const unwrappedParams = await params; // Unwrap the params Promise
+        const fetchedProduct = await fetchProduct(unwrappedParams.id); // Access the id after unwrapping
         if (!fetchedProduct) {
           console.error("Product not found in Sanity.");
         }
@@ -71,10 +72,8 @@ export default function ProductPage({ params }: { params: Params }) {
       }
     };
 
-    if (params.id) {
-      loadProduct();
-    }
-  }, [params.id]);
+    loadProduct();
+  }, [params]); // Trigger re-fetch if params changes
 
   const addToCart = () => {
     if (!product || !selectedColor || !selectedSize) return;

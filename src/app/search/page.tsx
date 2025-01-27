@@ -5,12 +5,13 @@ import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { urlFor } from "@/sanity/lib/image";
+import Image from "next/image";
 
 interface Product {
   _id: string;
   name: string;
   price: number;
-  image: any;
+  image: string;
 }
 
 async function fetchProducts(query: string): Promise<Product[]> {
@@ -66,17 +67,19 @@ const SearchPage = () => {
 
   return (
     <div className="max-w-4xl mx-auto py-8 px-4">
-      <h1 className="text-2xl font-bold mb-6">Search Results for "{query}"</h1>
+      <h1 className="text-2xl font-bold mb-6">Search Results for {query}</h1>
       <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {products.map((product) => (
           <li key={product._id} className="border p-4 rounded shadow hover:shadow-lg">
             <Link href={`/product/${product._id}`}>
               <div>
-                <img
-                  src={product.image ? urlFor(product.image).url() : "/fallback-image.png"}
-                  alt={product.name}
-                  className="w-full h-40 object-cover"
-                />
+              <Image
+  src={product.image ? urlFor(product.image).url() : "/fallback-image.png"}
+  alt={product.name}
+  width={600} // Specify the width (adjust as necessary)
+  height={200} // Specify the height (adjust as necessary)
+  className="w-full h-40 object-cover"
+/>
                 <h2 className="text-lg font-bold mt-4">{product.name}</h2>
                 <p className="text-gray-600 mt-2">$ {product.price}</p>
               </div>

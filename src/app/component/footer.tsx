@@ -1,4 +1,5 @@
 import React from "react";
+import Link from "next/link";
 
 const Footer = () => {
   return (
@@ -20,24 +21,24 @@ const Footer = () => {
               </h2>
               <nav className="list-none space-y-2">
                 <li>
-                  <a href="/" className="text-gray-600 hover:text-gray-800">
+                  <Link href="/" className="text-gray-600 hover:text-gray-800">
                     Home
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/shop" className="text-gray-600 hover:text-gray-800">
+                  <Link href="/shop" className="text-gray-600 hover:text-gray-800">
                     Shop
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/about" className="text-gray-600 hover:text-gray-800">
+                  <Link href="/about" className="text-gray-600 hover:text-gray-800">
                     About
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a href="/contact" className="text-gray-600 hover:text-gray-800">
+                  <Link href="/contact" className="text-gray-600 hover:text-gray-800">
                     Contact
-                  </a>
+                  </Link>
                 </li>
               </nav>
             </div>
@@ -49,28 +50,25 @@ const Footer = () => {
               </h2>
               <nav className="list-none space-y-2">
                 <li>
-                  <a
+                  <Link
                     href="/payment-options"
                     className="text-gray-600 hover:text-gray-800"
                   >
                     Payment Options
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
-                    href="/returns"
-                    className="text-gray-600 hover:text-gray-800"
-                  >
+                  <Link href="/returns" className="text-gray-600 hover:text-gray-800">
                     Returns
-                  </a>
+                  </Link>
                 </li>
                 <li>
-                  <a
+                  <Link
                     href="/privacy-policy"
                     className="text-gray-600 hover:text-gray-800"
                   >
                     Privacy Policy
-                  </a>
+                  </Link>
                 </li>
               </nav>
             </div>
@@ -105,7 +103,7 @@ const Footer = () => {
               © 2024 Meubel House. All rights reserved
             </p>
             <span className="inline-flex sm:mt-0 mt-4">
-              <a
+              <Link
                 href="#"
                 className="text-gray-500 hover:text-gray-800"
                 aria-label="Facebook"
@@ -120,8 +118,8 @@ const Footer = () => {
                 >
                   <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z"></path>
                 </svg>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="ml-3 text-gray-500 hover:text-gray-800"
                 aria-label="Twitter"
@@ -136,8 +134,8 @@ const Footer = () => {
                 >
                   <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z"></path>
                 </svg>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="ml-3 text-gray-500 hover:text-gray-800"
                 aria-label="Instagram"
@@ -161,8 +159,8 @@ const Footer = () => {
                   ></rect>
                   <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01"></path>
                 </svg>
-              </a>
-              <a
+              </Link>
+              <Link
                 href="#"
                 className="ml-3 text-gray-500 hover:text-gray-800"
                 aria-label="LinkedIn"
@@ -182,7 +180,7 @@ const Footer = () => {
                   ></path>
                   <circle cx="4" cy="4" r="2" stroke="none"></circle>
                 </svg>
-              </a>
+              </Link>
             </span>
           </div>
         </div>

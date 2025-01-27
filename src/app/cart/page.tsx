@@ -151,7 +151,7 @@ interface CartItem {
   name: string;
   price: number;
   quantity: number;
-  image: any;
+  image: string;
 }
 
 const Cart = () => {
@@ -175,15 +175,15 @@ const Cart = () => {
     setCart(updatedCart);
   };
 
-  // Update item quantity
-  const updateQuantity = (id: string, quantity: number) => {
-    if (quantity <= 0) return;
-    const updatedCart = cart.map(item =>
-      item.id === id ? { ...item, quantity } : item
-    );
-    saveCartToLocalStorage(updatedCart);
-    setCart(updatedCart);
-  };
+  // // Update item quantity
+  // const updateQuantity = (id: string, quantity: number) => {
+  //   if (quantity <= 0) return;
+  //   const updatedCart = cart.map(item =>
+  //     item.id === id ? { ...item, quantity } : item
+  //   );
+  //   saveCartToLocalStorage(updatedCart);
+  //   setCart(updatedCart);
+  // };
 
   // Calculate total amount
   const totalAmount = cart.reduce((total, item) => total + (item.price), 0); // Ensure price is treated as a number and quantity is considered
