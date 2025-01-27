@@ -68,10 +68,6 @@ const Shop = () => {
     fetchData();
   }, []);
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
   const applyFilters = useCallback(() => {
     let filtered = products;
 
@@ -93,7 +89,11 @@ const Shop = () => {
 
   useEffect(() => {
     applyFilters();
-  }, [applyFilters]);
+  }, [selectedCategory, maxPrice, showFeatured, applyFilters]);
+
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
 
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -192,9 +192,7 @@ const Shop = () => {
         <button
           onClick={() => handlePageChange(currentPage - 1)}
           disabled={currentPage === 1}
-          className={`px-4 py-2 border rounded ${
-            currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-white text-gray-700"
-          }`}
+          className={`px-4 py-2 border rounded ${currentPage === 1 ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-white text-gray-700"}`}
         >
           Previous
         </button>
@@ -202,9 +200,7 @@ const Shop = () => {
           <button
             key={index}
             onClick={() => handlePageChange(index + 1)}
-            className={`px-4 py-2 border rounded ${
-              currentPage === index + 1 ? "bg-gray-700 text-white" : "bg-white text-gray-700"
-            }`}
+            className={`px-4 py-2 border rounded ${currentPage === index + 1 ? "bg-gray-700 text-white" : "bg-white text-gray-700"}`}
           >
             {index + 1}
           </button>
@@ -212,9 +208,7 @@ const Shop = () => {
         <button
           onClick={() => handlePageChange(currentPage + 1)}
           disabled={currentPage === totalPages}
-          className={`px-4 py-2 border rounded ${
-            currentPage === totalPages ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-white text-gray-700"
-          }`}
+          className={`px-4 py-2 border rounded ${currentPage === totalPages ? "bg-gray-300 text-gray-500 cursor-not-allowed" : "bg-white text-gray-700"}`}
         >
           Next
         </button>

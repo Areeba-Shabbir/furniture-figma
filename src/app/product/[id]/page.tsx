@@ -1,11 +1,12 @@
-"use client";  // This marks the file as a client component
+"use client"; // Add this line at the top of your file
 
-import React, { useState, useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Image from "next/image";
 import { client } from "@/sanity/lib/client";
 import { urlFor } from "@/sanity/lib/image";
 
+// Define types
 interface Review {
   user: string;
   comment: string;
@@ -29,7 +30,6 @@ interface Params {
   id: string;
 }
 
-// Fetch product from Sanity
 async function fetchProduct(id: string): Promise<Product | null> {
   const query = `*[_type == "product" && _id == "${id}"]{
     category,
@@ -47,20 +47,33 @@ async function fetchProduct(id: string): Promise<Product | null> {
   return product[0] || null;
 }
 
-export default function ProductPage({ params }: { params: Params }) {
+export default function ProductPage({ params }: { params: Promise<Params> }) {
   const [product, setProduct] = useState<Product | null>(null);
   const [selectedColor, setSelectedColor] = useState<string>("");
   const [selectedSize, setSelectedSize] = useState<string>("");
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
   const [newReview, setNewReview] = useState<string>("");
   const [newRating, setNewRating] = useState<number>(1);
   const router = useRouter();
 
+  // Wait for params to be unwrapped before accessing
+  const [paramsValue, setParamsValue] = useState<Params | null>(null);
+
   useEffect(() => {
+    const unwrapParams = async () => {
+      const unwrappedParams = await params;
+      setParamsValue(unwrappedParams);
+    };
+
+    unwrapParams();
+  }, [params]);
+
+  useEffect(() => {
+    if (!paramsValue) return;
+
     const loadProduct = async () => {
       try {
-        const unwrappedParams = await params; // Unwrap the params Promise
-        const fetchedProduct = await fetchProduct(unwrappedParams.id); // Access the id after unwrapping
+        const fetchedProduct = await fetchProduct(paramsValue.id);
         if (!fetchedProduct) {
           console.error("Product not found in Sanity.");
         }
@@ -73,7 +86,7 @@ export default function ProductPage({ params }: { params: Params }) {
     };
 
     loadProduct();
-  }, [params]); // Trigger re-fetch if params changes
+  }, [paramsValue]);
 
   const addToCart = () => {
     if (!product || !selectedColor || !selectedSize) return;

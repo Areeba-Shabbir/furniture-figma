@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { Suspense, useState, useEffect } from "react";
 import { client } from "@/sanity/lib/client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
@@ -24,7 +24,7 @@ async function fetchProducts(query: string): Promise<Product[]> {
   return await client.fetch(sanityQuery);
 }
 
-const SearchPage = () => {
+const SearchPageContent = () => {
   const searchParams = useSearchParams();
   const query = searchParams.get("query") || "";
   const [products, setProducts] = useState<Product[]>([]);
@@ -73,13 +73,13 @@ const SearchPage = () => {
           <li key={product._id} className="border p-4 rounded shadow hover:shadow-lg">
             <Link href={`/product/${product._id}`}>
               <div>
-              <Image
-  src={product.image ? urlFor(product.image).url() : "/fallback-image.png"}
-  alt={product.name}
-  width={600} // Specify the width (adjust as necessary)
-  height={200} // Specify the height (adjust as necessary)
-  className="w-full h-40 object-cover"
-/>
+                <Image
+                  src={product.image ? urlFor(product.image).url() : "/fallback-image.png"}
+                  alt={product.name}
+                  width={600}
+                  height={200}
+                  className="w-full h-40 object-cover"
+                />
                 <h2 className="text-lg font-bold mt-4">{product.name}</h2>
                 <p className="text-gray-600 mt-2">$ {product.price}</p>
               </div>
@@ -91,4 +91,10 @@ const SearchPage = () => {
   );
 };
 
-export default SearchPage;
+export default function SearchPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <SearchPageContent />
+    </Suspense>
+  );
+}
