@@ -25,7 +25,7 @@ interface Product {
 
 const ITEMS_PER_PAGE = 8;
 
-async function fetchProducts(): Promise<Product[]> {
+const fetchProducts = async (): Promise<Product[]> => {
   const query = `*[_type == "product"]{
     category,
     _id,
@@ -39,7 +39,7 @@ async function fetchProducts(): Promise<Product[]> {
   }`;
   const products = await client.fetch(query);
   return products;
-}
+};
 
 const Shop = () => {
   const [products, setProducts] = useState<Product[]>([]);
@@ -69,7 +69,7 @@ const Shop = () => {
   }, []);
 
   const applyFilters = useCallback(() => {
-    let filtered = products;
+    let filtered = [...products];
 
     if (selectedCategory !== "All") {
       filtered = filtered.filter((product) => product.category === selectedCategory);
@@ -156,7 +156,7 @@ const Shop = () => {
 
       {/* Product Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 p-6">
-        {paginatedProducts.map((product: Product) => (
+        {paginatedProducts.map((product) => (
           <Link key={product._id} href={`/product/${product._id}`} passHref>
             <div className="flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer">
               {product.image ? (
@@ -178,9 +178,7 @@ const Shop = () => {
 
               <div className="p-4 text-center">
                 <p className="text-lg font-medium text-gray-800">{product.name}</p>
-                <h3 className="text-xl font-semibold text-gray-900 mt-2">
-                  ${product.price}
-                </h3>
+                <h3 className="text-xl font-semibold text-gray-900 mt-2">${product.price}</h3>
               </div>
             </div>
           </Link>
