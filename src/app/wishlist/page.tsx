@@ -11,7 +11,7 @@ interface WishlistItem {
   id: string;
   name: string;
   price: number;
-  image: any; // Changed to string to ensure valid URL
+  image: string; // Changed to string to ensure valid URL
 }
 
 export default function WishlistPage() {

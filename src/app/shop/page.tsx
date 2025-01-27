@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import shopimg from "@/app/public/shopimg.png";
@@ -72,7 +72,7 @@ const Shop = () => {
     setCurrentPage(page);
   };
 
-  const applyFilters = () => {
+  const applyFilters = useCallback(() => {
     let filtered = products;
 
     if (selectedCategory !== "All") {
@@ -89,11 +89,11 @@ const Shop = () => {
 
     setFilteredProducts(filtered);
     setCurrentPage(1);
-  };
+  }, [products, selectedCategory, maxPrice, showFeatured]);
 
   useEffect(() => {
     applyFilters();
-  }, [selectedCategory, maxPrice, showFeatured]);
+  }, [applyFilters]);
 
   const paginatedProducts = filteredProducts.slice(
     (currentPage - 1) * ITEMS_PER_PAGE,
@@ -108,15 +108,15 @@ const Shop = () => {
     <div className="flex flex-col">
       {/* Banner Section */}
       <div className="relative">
-      <Image
-  src={shopimg}
-  alt="Shop Banner"
-  height={400}
-  width={1440}
-  className="w-full h-[250px] sm:h-[400px] object-cover"
-  priority
-  loading="eager"
-/>
+        <Image
+          src={shopimg}
+          alt="Shop Banner"
+          height={400}
+          width={1440}
+          className="w-full h-[250px] sm:h-[400px] object-cover"
+          priority
+          loading="eager"
+        />
         <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
           <h1 className="text-white text-2xl sm:text-4xl font-semibold">Shop</h1>
           <p className="text-white mt-2 text-sm sm:text-base">Home / Shop</p>
