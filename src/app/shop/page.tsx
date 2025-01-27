@@ -4,7 +4,7 @@ import React, { useEffect, useState, useCallback } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import shopimg from "@/app/public/shopimg.png";
-import Text from "@/app/component/Text";
+import Text from "@/app/component/Text"; // Fixed the path here
 import { client } from "@/sanity/lib/client";
 import imageUrlBuilder from "@sanity/image-url";
 
@@ -84,7 +84,7 @@ const Shop = () => {
     }
 
     setFilteredProducts(filtered);
-    setCurrentPage(1);
+    setCurrentPage(1); // Reset to the first page after applying filters
   }, [products, selectedCategory, maxPrice, showFeatured]);
 
   useEffect(() => {
@@ -161,15 +161,17 @@ const Shop = () => {
             <div className="flex flex-col items-center bg-white shadow-md rounded-lg overflow-hidden transition-transform transform hover:scale-105 cursor-pointer">
               {product.image ? (
                 <Image
-                  src={urlFor(product.image).url() || "/fallback-image.png"}
-                  alt={product.name}
-                  height={300}
-                  width={300}
-                  className="h-[250px] w-full object-cover"
-                  onError={(e) => {
-                    e.currentTarget.src = "/fallback-image.png";
-                  }}
-                />
+                src={urlFor(product.image).url() || "/fallback-image.png"}
+                alt={product.name}
+                height={300}
+                width={300}
+                className="h-[250px] w-full object-cover"
+                onError={(e) => {
+                  e.currentTarget.src = "/fallback-image.png";
+                }}
+                loading="eager" // Add this line to force eager loading
+              />
+              
               ) : (
                 <div className="h-[250px] w-full bg-gray-200 flex items-center justify-center">
                   <p className="text-gray-500">No Image Available</p>
@@ -178,7 +180,7 @@ const Shop = () => {
 
               <div className="p-4 text-center">
                 <p className="text-lg font-medium text-gray-800">{product.name}</p>
-                <h3 className="text-xl font-semibold text-gray-900 mt-2">${product.price}</h3>
+                <h3 className="text-xl font-semibold text-gray-900 mt-2">Rs. {product.price}</h3>
               </div>
             </div>
           </Link>
