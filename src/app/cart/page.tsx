@@ -5,7 +5,7 @@ import { FaTrashAlt } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
 import { urlFor } from '@/sanity/lib/image';  
-import shopimg from '@/app/public/shopimg.png'; // Direct import from /public
+
 
 interface CartItem {
   id: string;
