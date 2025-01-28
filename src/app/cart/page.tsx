@@ -4,8 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image';  
-
+import { urlFor } from '@/sanity/lib/image'; // Ensure this is correctly configured in your project.
 
 interface CartItem {
   id: string;
@@ -41,7 +40,7 @@ const Cart = () => {
   };
 
   // Calculate total amount
-  const totalAmount = cart.reduce((total, item) => total + item.price, 0);
+  const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
 
   if (!cart) {
     return (
@@ -53,9 +52,6 @@ const Cart = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-8 py-8">
-     
-    
-
       <h2 className="text-xl sm:text-2xl font-semibold mb-6">Your Shopping Cart</h2>
 
       {cart.length === 0 ? (
@@ -64,9 +60,9 @@ const Cart = () => {
         <div>
           {/* Cart items */}
           <div className="space-y-6">
-            {cart.map((item, index) => (
+            {cart.map((item) => (
               <div
-                key={item.id || index}
+                key={item.id} // Fixed the missing key issue
                 className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-lg rounded-lg p-4 space-y-4 sm:space-y-0"
               >
                 <div className="flex items-center space-x-4">
@@ -83,12 +79,13 @@ const Cart = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-medium text-base sm:text-lg">{item.name}</span>
+                    <span className="text-sm text-gray-500">Qty: {item.quantity}</span>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end space-y-2">
                   <span className="text-lg sm:text-xl font-semibold">
-                    Rs. {Number(item.price).toFixed(2)}
+                    Rs. {(item.price * item.quantity).toFixed(2)}
                   </span>
                   <button
                     className="text-red-600 hover:text-red-800"
