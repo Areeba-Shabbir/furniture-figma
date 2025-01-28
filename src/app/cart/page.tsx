@@ -53,23 +53,8 @@ const Cart = () => {
 
   return (
     <div className="container mx-auto px-4 sm:px-8 py-8">
-      {/* Banner Section */}
-      <div className="relative">
-        <Image
-          src={shopimg}
-          alt="Shop Banner"
-          height={400}
-          width={1440}
-          className="w-full h-[250px] sm:h-[400px] object-cover"
-          priority
-          sizes="(max-width: 640px) 100vw, (max-width: 1024px) 80vw, 1440px"
-        />
-
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-black bg-opacity-30">
-          <h1 className="text-white text-2xl sm:text-3xl lg:text-4xl font-semibold">Cart</h1>
-          <p className="text-white mt-2 text-sm sm:text-base">Home / Cart</p>
-        </div>
-      </div>
+     
+    
 
       <h2 className="text-xl sm:text-2xl font-semibold mb-6">Your Shopping Cart</h2>
 
