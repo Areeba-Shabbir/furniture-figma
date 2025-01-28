@@ -1,3 +1,4 @@
+//data migration.js
 import { createClient } from '@sanity/client';
 import axios from 'axios';
 import dotenv from 'dotenv';
