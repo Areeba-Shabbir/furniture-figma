@@ -4,7 +4,7 @@ import React, { useState, useEffect } from 'react';
 import { FaTrashAlt } from 'react-icons/fa';
 import Link from 'next/link';
 import Image from 'next/image';
-import { urlFor } from '@/sanity/lib/image'; // Ensure this is correctly configured in your project.
+import { urlFor } from '@/sanity/lib/image';
 
 interface CartItem {
   id: string;
@@ -15,13 +15,18 @@ interface CartItem {
 }
 
 const Cart = () => {
-  const [cart, setCart] = useState<CartItem[]>([]);
+  const [cart, setCart] = useState<CartItem[] | null>(null);
 
-  // Load cart from localStorage after component mounts
+  // Load cart from localStorage after the component mounts
   useEffect(() => {
     if (typeof window !== 'undefined') {
-      const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
-      setCart(storedCart);
+      try {
+        const storedCart = JSON.parse(localStorage.getItem('cart') || '[]');
+        setCart(storedCart);
+      } catch (error) {
+        console.error('Error reading cart from localStorage:', error);
+        setCart([]);
+      }
     }
   }, []);
 
@@ -34,15 +39,17 @@ const Cart = () => {
 
   // Remove an item from the cart
   const removeItem = (id: string) => {
+    if (!cart) return;
     const updatedCart = cart.filter((item) => item.id !== id);
     saveCartToLocalStorage(updatedCart);
     setCart(updatedCart);
   };
 
   // Calculate total amount
-  const totalAmount = cart.reduce((total, item) => total + item.price * item.quantity, 0);
+  const totalAmount = cart?.reduce((total, item) => total + item.price, 0) || 0;
 
-  if (!cart) {
+  // Loading state
+  if (cart === null) {
     return (
       <div className="text-center py-10">
         <p className="text-lg text-gray-500">Loading your cart...</p>
@@ -62,7 +69,7 @@ const Cart = () => {
           <div className="space-y-6">
             {cart.map((item) => (
               <div
-                key={item.id} // Fixed the missing key issue
+                key={item.id}
                 className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-lg rounded-lg p-4 space-y-4 sm:space-y-0"
               >
                 <div className="flex items-center space-x-4">
@@ -79,13 +86,12 @@ const Cart = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-medium text-base sm:text-lg">{item.name}</span>
-                    <span className="text-sm text-gray-500">Qty: {item.quantity}</span>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end space-y-2">
                   <span className="text-lg sm:text-xl font-semibold">
-                    Rs. {(item.price * item.quantity).toFixed(2)}
+                    Rs. {Number(item.price).toFixed(2)}
                   </span>
                   <button
                     className="text-red-600 hover:text-red-800"
