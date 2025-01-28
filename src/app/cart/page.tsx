@@ -45,8 +45,8 @@ const Cart = () => {
     setCart(updatedCart);
   };
 
-  // Calculate total amount
-  const totalAmount = cart?.reduce((total, item) => total + item.price, 0) || 0;
+   // Calculate total amount
+   const totalAmount = cart?.reduce((total, item) => total + item.price, 0) || 0;
 
   // Loading state
   if (cart === null) {
@@ -67,9 +67,9 @@ const Cart = () => {
         <div>
           {/* Cart items */}
           <div className="space-y-6">
-            {cart.map((item) => (
+            {cart.map((item, index) => (
               <div
-                key={item.id}
+                key={item.id || `fallback-key-${index}`} // Use fallback key if item.id is undefined
                 className="flex flex-col sm:flex-row items-center justify-between bg-white shadow-lg rounded-lg p-4 space-y-4 sm:space-y-0"
               >
                 <div className="flex items-center space-x-4">
@@ -86,12 +86,13 @@ const Cart = () => {
                   </div>
                   <div className="flex flex-col">
                     <span className="font-medium text-base sm:text-lg">{item.name}</span>
+                    <span className="text-sm text-gray-500">Qty: {item.quantity}</span>
                   </div>
                 </div>
 
                 <div className="flex flex-col items-end space-y-2">
                   <span className="text-lg sm:text-xl font-semibold">
-                    Rs. {Number(item.price).toFixed(2)}
+                    Rs. {Number(item.price ).toFixed(2)}
                   </span>
                   <button
                     className="text-red-600 hover:text-red-800"
